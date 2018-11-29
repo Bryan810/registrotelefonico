@@ -25,4 +25,15 @@ public class Usuario {
         this.clave = clave;
         this.rol = rol;
     }
+
+    public Usuario() {
+    }
+
+    public Usuario (Usuario usr){
+        this.usuario = usuario;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.clave = clave;
+        this.rol = rol;
+    }
 }

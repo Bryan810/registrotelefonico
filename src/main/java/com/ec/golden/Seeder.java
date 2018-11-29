@@ -1,6 +1,6 @@
 package com.ec.golden;
 
-import com.ec.golden.entidades.*;
+import com.ec.golden.entidades.informacion.*;
 import com.ec.golden.repositorios.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 @Component
 public class Seeder implements CommandLineRunner {

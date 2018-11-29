@@ -1,4 +1,4 @@
-package com.ec.golden.entidades;
+package com.ec.golden.entidades.informacion;
 
 import lombok.Data;
 

@@ -1,7 +1,6 @@
-package com.ec.golden.entidades;
+package com.ec.golden.entidades.informacion;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;

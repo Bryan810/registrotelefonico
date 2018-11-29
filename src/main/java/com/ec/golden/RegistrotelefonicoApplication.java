@@ -3,6 +3,7 @@ package com.ec.golden;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.ansi.AnsiColor;
 import org.springframework.boot.ansi.AnsiOutput;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -10,7 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class RegistrotelefonicoApplication {
 
     public static void main(String[] args) {
-                ConfigurableApplicationContext context = SpringApplication.run(RegistrotelefonicoApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(RegistrotelefonicoApplication.class, args);
 
         String version = context.getEnvironment().getProperty("application.version");
 

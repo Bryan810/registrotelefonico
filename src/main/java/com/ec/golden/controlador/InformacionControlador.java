@@ -1,11 +1,10 @@
 package com.ec.golden.controlador;
 
 
-import com.ec.golden.entidades.Informacion;
+import com.ec.golden.entidades.informacion.Informacion;
 import com.ec.golden.repositorios.informacionRepo;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sound.sampled.Line;
 import java.util.List;
 
 @RestController

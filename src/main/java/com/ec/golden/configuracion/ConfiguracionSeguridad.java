@@ -1,39 +1,68 @@
 package com.ec.golden.configuracion;
 
+
+import com.ec.golden.seguridad.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
 public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
-//
-//    /**
-//     * Override this method to configure the {@link HttpSecurity}. Typically subclasses
-//     * should not invoke this method by calling super as it may override their
-//     * configuration. The default configuration is:
-//     *
-//     * <pre>
-//     * http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
-//     * </pre>
-//     *
-//     * @param http the {@link HttpSecurity} to modify
-//     * @throws Exception if an error occurs
-//     */
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.
-//                authorizeRequests()
-//                .anyRequest()
-//                .permitAll()
-//                .and().httpBasic();
-//        http.csfr.disable();
-//
-//    }
 
 
+    @Value("${app.login.admin.username}")
+    String username;
+    @Value("${app.login.admin.password}")
+    String password;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/Usuarios/**").permitAll()
+                .antMatchers("/private/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/private/**").authenticated()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .and()
+                .logout()
+                .permitAll();
+    }
+
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth, CustomUserDetailsService userDetailsService) throws Exception {
+
+        auth
+                .userDetailsService(userDetailsService).passwordEncoder(passwordEncoder())
+                .and()
+                .inMemoryAuthentication()
+                .withUser(username).password(password).roles("ADMIN", "EDITOR").and().passwordEncoder(passwordEncoder());
+
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new PasswordEncoder() {
+            @Override
+            public String encode(CharSequence charSequence) {
+                return charSequence.toString();
+            }
+
+            @Override
+            public boolean matches(CharSequence charSequence, String s) {
+                return true;
+            }
+        };
+    }
 
 
 }

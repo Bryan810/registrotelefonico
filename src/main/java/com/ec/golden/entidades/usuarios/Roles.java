@@ -8,8 +8,7 @@ public class Roles {
     private String role;
 
 
-    protected Roles() {
-    }
+    protected Roles() {}
 
     public Roles(String role) {
         this.role = role;
