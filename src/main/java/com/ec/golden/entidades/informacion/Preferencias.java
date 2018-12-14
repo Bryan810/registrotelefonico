@@ -9,7 +9,9 @@ public class Preferencias {
     private String nombrePref;
 
 
-    protected Preferencias(){}
+    protected Preferencias() {
+    }
+
     public Preferencias(String nombrePref) {
         this.nombrePref = nombrePref;
     }

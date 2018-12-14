@@ -24,28 +24,44 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/Usuarios/**").permitAll()
-                .antMatchers("/private/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/private/**").authenticated()
-                .anyRequest().authenticated()
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/Usuarios/**").permitAll()
+//                .antMatchers("/private/admin/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/private/**").authenticated()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .and()
+//                .logout()
+//                .permitAll();
+
+        http.csrf().ignoringAntMatchers("/Informacion", "/Usuarios", "**/**").and()
+                .authorizeRequests().antMatchers("/Informacion","/login", "/Usuarios", "**/**").permitAll()
+
+                //.antMatchers("/Informacion/**").access("hasRole('ADMIN')")
+                //.antMatchers("/**").access("hasRole('EDITOR')")
+                //.anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .and()
-                .logout()
-                .permitAll();
+                .formLogin();
+//                .loginPage("/login.jsp")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
     }
 
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth, CustomUserDetailsService userDetailsService) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth,
+                                CustomUserDetailsService userDetailsService) throws Exception {
 
         auth
                 .userDetailsService(userDetailsService).passwordEncoder(passwordEncoder())
                 .and()
                 .inMemoryAuthentication()
-                .withUser(username).password(password).roles("ADMIN", "EDITOR").and().passwordEncoder(passwordEncoder());
+                .withUser(username).password(password).
+                roles("ADMIN", "EDITOR").and().passwordEncoder(passwordEncoder());
 
     }
 

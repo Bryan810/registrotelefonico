@@ -12,5 +12,6 @@ public class Pais {
         this.nombrePais = nombrePais;
     }
 
-    protected Pais(){}
+    protected Pais() {
+    }
 }
